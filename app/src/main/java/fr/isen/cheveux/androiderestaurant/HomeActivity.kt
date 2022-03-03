@@ -36,4 +36,10 @@ class HomeActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
+    public override fun onStop() {
+        super.onStop()
+        println("home end")
+        Toast.makeText(applicationContext, "home end", Toast.LENGTH_LONG).show()
+    }
 }
