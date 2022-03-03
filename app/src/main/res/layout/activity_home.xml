@@ -12,19 +12,19 @@
 		app:layout_constraintTop_toTopOf="parent">
 
 		<Button
-			android:id="@+id/button1"
+			android:id="@+id/buttonStarters"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/entrees" />
 
 		<Button
-			android:id="@+id/button2"
+			android:id="@+id/buttonDishes"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/plats" />
 
 		<Button
-			android:id="@+id/button3"
+			android:id="@+id/buttonDesserts"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/desserts" />
