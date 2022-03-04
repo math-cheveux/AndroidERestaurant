@@ -15,18 +15,18 @@
 			android:id="@+id/buttonStarters"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/entrees" />
+			android:text="@string/home_starters" />
 
 		<Button
 			android:id="@+id/buttonDishes"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/plats" />
+			android:text="@string/home_dishes" />
 
 		<Button
 			android:id="@+id/buttonDesserts"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/desserts" />
+			android:text="@string/home_desserts" />
 	</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
