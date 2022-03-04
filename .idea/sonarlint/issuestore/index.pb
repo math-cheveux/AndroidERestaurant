@@ -20,7 +20,5 @@ F
 Vapp/src/androidTest/java/fr/isen/cheveux/androiderestaurant/ExampleInstrumentedTest.kt,9\8\98090894d5b02c051877ee307fc0a9d7bc4dd2a8
 w
 Gapp/src/test/java/fr/isen/cheveux/androiderestaurant/ExampleUnitTest.kt,d\e\de90b37ff6db159312c8c1b3e8b65944fdc0c8e0
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35

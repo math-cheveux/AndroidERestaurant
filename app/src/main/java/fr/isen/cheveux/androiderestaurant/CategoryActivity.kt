@@ -1,7 +1,7 @@
 package fr.isen.cheveux.androiderestaurant
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityCategoryBinding
@@ -35,7 +35,10 @@ class CategoryActivity : AppCompatActivity() {
             }
         }
         binding.categoryList.adapter = FoodAdapter(foods.map { Food(it) }.toTypedArray()) {
-            Toast.makeText(this, "Vous avez sélectionné ${it.name}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, FoodActivity::class.java).apply {
+                putExtra(EXTRA_MESSAGE, it.name)
+            }
+            startActivity(intent)
         }
     }
 }
