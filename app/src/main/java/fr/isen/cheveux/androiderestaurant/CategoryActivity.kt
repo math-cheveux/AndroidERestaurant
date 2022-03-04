@@ -17,9 +17,9 @@ class CategoryActivity : AppCompatActivity() {
 
         val message = intent.getStringExtra(EXTRA_MESSAGE)
 
-        binding.foodTitle.apply { text = message }
+        binding.categoryTitle.apply { text = message }
 
-        binding.foodList.layoutManager = LinearLayoutManager(this)
+        binding.categoryList.layoutManager = LinearLayoutManager(this)
         val foods: Array<String> = when (message) {
             getString(R.string.home_starters) -> {
                 resources.getStringArray(R.array.starters_array)
@@ -34,7 +34,7 @@ class CategoryActivity : AppCompatActivity() {
                 Array(0) { "" }
             }
         }
-        binding.foodList.adapter = FoodAdapter(foods.map { Food(it) }.toTypedArray()) {
+        binding.categoryList.adapter = FoodAdapter(foods.map { Food(it) }.toTypedArray()) {
             Toast.makeText(this, "Vous avez sélectionné ${it.name}", Toast.LENGTH_SHORT).show()
         }
     }

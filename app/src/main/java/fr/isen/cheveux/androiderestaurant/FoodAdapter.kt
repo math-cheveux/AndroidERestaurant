@@ -26,7 +26,7 @@ class FoodAdapter(private val dataSet: Array<Food>, private val listener: (Food)
 
     class ViewHolder(element: View) : RecyclerView.ViewHolder(element) {
         fun bind(food: Food, listener: (Food) -> Unit) = with(itemView) {
-            itemView.findViewById<TextView>(R.id.food_name).text = food.name
+            itemView.findViewById<TextView>(R.id.item_food_name).text = food.name
             setOnClickListener { listener(food) }
         }
     }
