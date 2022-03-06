@@ -1,8 +1,9 @@
 package fr.isen.cheveux.androiderestaurant
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityFoodBinding
+import fr.isen.cheveux.androiderestaurant.model.PlateData
 
 class FoodActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFoodBinding
@@ -13,7 +14,7 @@ class FoodActivity : AppCompatActivity() {
         binding = ActivityFoodBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val message = intent.getStringExtra(EXTRA_MESSAGE)
-        binding.foodName.text = message
+        val plate: PlateData = intent.getSerializableExtra(EXTRA_MESSAGE) as PlateData
+        binding.foodName.text = plate.frName
     }
 }

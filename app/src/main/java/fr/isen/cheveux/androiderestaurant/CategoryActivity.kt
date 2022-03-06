@@ -4,10 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Response
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityCategoryBinding
+import fr.isen.cheveux.androiderestaurant.model.ApiData
+import fr.isen.cheveux.androiderestaurant.model.CategoryData
 
-class CategoryActivity : AppCompatActivity() {
+class CategoryActivity : AppCompatActivity(), Response.Listener<ApiData> {
     private lateinit var binding: ActivityCategoryBinding
+    private var message: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,30 +19,23 @@ class CategoryActivity : AppCompatActivity() {
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val message = intent.getStringExtra(EXTRA_MESSAGE)
+        message = intent.getStringExtra(EXTRA_MESSAGE)
 
         binding.categoryTitle.apply { text = message }
 
         binding.categoryList.layoutManager = LinearLayoutManager(this)
-        val foods: Array<String> = when (message) {
-            getString(R.string.home_starters) -> {
-                resources.getStringArray(R.array.starters_array)
+        Api.recover(this, this)
+    }
+
+    override fun onResponse(response: ApiData?) {
+        val category: CategoryData? = response?.data?.find { categoryData -> categoryData.frName == message }
+        if (category != null) {
+            binding.categoryList.adapter = CategoryAdapter(category) {
+                val intent = Intent(this, FoodActivity::class.java).apply {
+                    putExtra(EXTRA_MESSAGE, it)
+                }
+                startActivity(intent)
             }
-            getString(R.string.home_dishes) -> {
-                resources.getStringArray(R.array.dishes_array)
-            }
-            getString(R.string.home_desserts) -> {
-                resources.getStringArray(R.array.desserts_array)
-            }
-            else -> {
-                Array(0) { "" }
-            }
-        }
-        binding.categoryList.adapter = FoodAdapter(foods.map { Food(it) }.toTypedArray()) {
-            val intent = Intent(this, FoodActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, it.name)
-            }
-            startActivity(intent)
         }
     }
 }
