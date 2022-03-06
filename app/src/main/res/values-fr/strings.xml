@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="home_starters">Entrées</string>
+	<string name="home_dishes">Plats</string>
+	<string name="home_desserts">Desserts</string>
+</resources>

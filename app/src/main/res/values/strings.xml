@@ -1,17 +1,7 @@
 <resources>
-	<string name="app_name">AndroidERestaurant</string>
-	<string name="home_starters">Entrées</string>
-	<string name="home_dishes">Plats</string>
+	<string name="app_name" translatable="false">AndroidERestaurant</string>
+	<string name="home_starters">Starters</string>
+	<string name="home_dishes">Dishes</string>
 	<string name="home_desserts">Desserts</string>
-	<string name="default_preview">#</string>
-	<string-array name="starters_array">
-		<item>Salade</item>
-		<item>Macédoine</item>
-	</string-array>
-	<string-array name="dishes_array">
-		<item>Gratin</item>
-	</string-array>
-	<string-array name="desserts_array">
-		<item>Glace</item>
-	</string-array>
+	<string name="default_preview" translatable="false">#</string>
 </resources>
