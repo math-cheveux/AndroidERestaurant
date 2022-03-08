@@ -1,9 +1,13 @@
 package fr.isen.cheveux.androiderestaurant
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.cheveux.androiderestaurant.adapter.ImageAdapter
+import fr.isen.cheveux.androiderestaurant.adapter.IngredientAdapter
+import fr.isen.cheveux.androiderestaurant.adapter.PriceAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityFoodBinding
 import fr.isen.cheveux.androiderestaurant.model.PlateData
 
@@ -20,8 +24,16 @@ class FoodActivity : AppCompatActivity() {
         binding.foodName.text = plate.frName
 
         if (plate.images.isNotEmpty() && plate.images[0].isNotEmpty()) {
-            binding.foodPreviews.layoutManager = LinearLayoutManager(this)
+            binding.foodPreviews.layoutManager = GridLayoutManager(this, minOf(plate.images.size, 3))
             binding.foodPreviews.adapter = ImageAdapter(plate.images)
+        } else {
+            binding.foodGalleryLabel.visibility = View.GONE
         }
+
+        binding.foodPrices.layoutManager = LinearLayoutManager(this)
+        binding.foodPrices.adapter = PriceAdapter(plate.prices)
+
+        binding.foodIngredients.layoutManager = LinearLayoutManager(this)
+        binding.foodIngredients.adapter = IngredientAdapter(plate.ingredients)
     }
 }

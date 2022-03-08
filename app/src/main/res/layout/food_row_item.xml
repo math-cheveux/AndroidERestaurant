@@ -13,6 +13,7 @@
 		android:layout_marginStart="16dp"
 		android:layout_marginEnd="8dp"
 		android:text="@string/default_preview"
+		android:textColor="?attr/colorSecondary"
 		android:textSize="24sp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@+id/item_food_price"

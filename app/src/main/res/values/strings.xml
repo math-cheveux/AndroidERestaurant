@@ -6,4 +6,9 @@
 	<string name="default_preview" translatable="false">#</string>
 	<string name="default_unknown" translatable="false">\???</string>
 	<string name="currency_euro" translatable="false">€</string>
+	<string name="food_prices_label">Prices</string>
+	<string name="food_ingredients_label">Ingredients</string>
+	<string name="food_gallery_label">Gallery</string>
+	<string name="list_bullet" translatable="false">•</string>
+	<string name="list_hyphen_bullet" translatable="false">⁃</string>
 </resources>

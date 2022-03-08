@@ -11,18 +11,70 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="@string/default_preview"
+		android:textColor="?attr/colorPrimary"
 		android:textSize="48sp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/food_previews"
+	<ScrollView
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/food_name" />
+		app:layout_constraintTop_toBottomOf="@+id/food_name">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/food_gallery_label"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/food_gallery_label"
+				android:textColor="?attr/colorSecondary"
+				android:textSize="28sp"
+				android:textStyle="bold" />
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/food_previews"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+			</androidx.recyclerview.widget.RecyclerView>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/food_prices_label"
+				android:textAllCaps="false"
+				android:textColor="?attr/colorSecondary"
+				android:textSize="28sp"
+				android:textStyle="bold" />
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/food_prices"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/food_ingredients_label"
+				android:textAllCaps="false"
+				android:textColor="?attr/colorSecondary"
+				android:textSize="28sp"
+				android:textStyle="bold" />
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/food_ingredients"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+		</LinearLayout>
+	</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

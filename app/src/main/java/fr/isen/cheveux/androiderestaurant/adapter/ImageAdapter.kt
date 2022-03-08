@@ -2,7 +2,6 @@ package fr.isen.cheveux.androiderestaurant.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import fr.isen.cheveux.androiderestaurant.databinding.ImgRowItemBinding
@@ -17,12 +16,14 @@ class ImageAdapter(private val urls: List<String>) : RecyclerView.Adapter<ImageA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get().load(urls[position]).into(holder.img)
+        holder.bind(urls[position])
     }
 
     override fun getItemCount(): Int = urls.size
 
-    inner class ViewHolder(binding: ImgRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        var img: ImageView = binding.itemImg
+    inner class ViewHolder(private val binding: ImgRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(url: String) {
+            Picasso.get().load(url).into(binding.itemImg)
+        }
     }
 }
