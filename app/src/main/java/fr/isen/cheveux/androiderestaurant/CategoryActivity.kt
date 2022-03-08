@@ -2,6 +2,7 @@ package fr.isen.cheveux.androiderestaurant
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Response
@@ -28,6 +29,7 @@ class CategoryActivity : AppCompatActivity(), Response.Listener<ApiData> {
     }
 
     override fun onResponse(response: ApiData?) {
+        binding.categoryLoadingBar.visibility = View.GONE
         val category: CategoryData? = response?.data?.find { categoryData -> categoryData.frName == message }
         if (category != null) {
             binding.categoryList.adapter = CategoryAdapter(category) {

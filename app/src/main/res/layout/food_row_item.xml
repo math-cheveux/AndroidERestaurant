@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center">
+
+	<TextView
+		android:id="@+id/item_food_name"
+		android:layout_width="0dp"
+		android:layout_height="34dp"
+		android:layout_gravity="center"
+		android:layout_marginStart="16dp"
+		android:layout_marginEnd="8dp"
+		android:text="@string/default_preview"
+		android:textSize="24sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/item_food_price"
+		app:layout_constraintHorizontal_bias="0.1"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_wrapBehaviorInParent="included" />
+
+	<ImageView
+		android:id="@+id/item_food_preview"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+	<TextView
+		android:id="@+id/item_food_price"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:text="@string/default_unknown"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/item_food_preview"
+		app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

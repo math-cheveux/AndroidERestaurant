@@ -4,4 +4,6 @@
 	<string name="home_dishes">Dishes</string>
 	<string name="home_desserts">Desserts</string>
 	<string name="default_preview" translatable="false">#</string>
+	<string name="default_unknown" translatable="false">\???</string>
+	<string name="currency_euro" translatable="false">€</string>
 </resources>
