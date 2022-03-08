@@ -11,4 +11,5 @@
 	<string name="food_gallery_label">Gallery</string>
 	<string name="list_bullet" translatable="false">•</string>
 	<string name="list_hyphen_bullet" translatable="false">⁃</string>
+	<string name="reload">Reload</string>
 </resources>

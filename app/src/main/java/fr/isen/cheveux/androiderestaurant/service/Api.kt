@@ -36,6 +36,10 @@ class Api {
 
             VolleySingleton.getInstance(ctx).addToRequestQueue(request)
         }
+
+        fun invalidate(ctx: Context) {
+            VolleySingleton.getInstance(ctx).invalidate()
+        }
     }
 
     private class CacheRequest(

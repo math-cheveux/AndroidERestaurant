@@ -2,9 +2,12 @@ package fr.isen.cheveux.androiderestaurant
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityHomeBinding
+import fr.isen.cheveux.androiderestaurant.service.Api
 
 const val EXTRA_MESSAGE = "fr.isen.cheveux.androidrestaurant.MESSAGE"
 
@@ -14,9 +17,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
 
         binding.buttonStarters.setOnClickListener {
             onClick(binding.buttonStarters.text.toString())
@@ -36,6 +40,21 @@ class HomeActivity : AppCompatActivity() {
             putExtra(EXTRA_MESSAGE, text)
         }
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_reload -> {
+            Api.invalidate(this)
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     public override fun onStop() {
