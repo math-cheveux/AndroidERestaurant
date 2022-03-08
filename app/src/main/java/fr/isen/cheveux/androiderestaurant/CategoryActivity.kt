@@ -9,6 +9,7 @@ import com.android.volley.Response
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityCategoryBinding
 import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CategoryData
+import fr.isen.cheveux.androiderestaurant.service.Api
 
 class CategoryActivity : AppCompatActivity(), Response.Listener<ApiData> {
     private lateinit var binding: ActivityCategoryBinding

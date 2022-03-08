@@ -1,4 +1,4 @@
-package fr.isen.cheveux.androiderestaurant
+package fr.isen.cheveux.androiderestaurant.service
 
 import android.content.Context
 import android.util.Log
