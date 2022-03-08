@@ -1,9 +1,10 @@
-package fr.isen.cheveux.androiderestaurant
+package fr.isen.cheveux.androiderestaurant.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import fr.isen.cheveux.androiderestaurant.R
 import fr.isen.cheveux.androiderestaurant.databinding.FoodRowItemBinding
 import fr.isen.cheveux.androiderestaurant.model.CategoryData
 import fr.isen.cheveux.androiderestaurant.model.PlateData

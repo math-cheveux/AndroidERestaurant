@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Response
+import fr.isen.cheveux.androiderestaurant.adapter.CategoryAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityCategoryBinding
 import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CategoryData

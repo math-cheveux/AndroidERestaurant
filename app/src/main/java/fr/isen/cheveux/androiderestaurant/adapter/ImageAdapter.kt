@@ -1,4 +1,4 @@
-package fr.isen.cheveux.androiderestaurant
+package fr.isen.cheveux.androiderestaurant.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

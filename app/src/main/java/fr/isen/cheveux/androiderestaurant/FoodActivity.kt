@@ -3,6 +3,7 @@ package fr.isen.cheveux.androiderestaurant
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import fr.isen.cheveux.androiderestaurant.adapter.ImageAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityFoodBinding
 import fr.isen.cheveux.androiderestaurant.model.PlateData
 
