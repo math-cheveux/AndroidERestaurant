@@ -1,15 +1,16 @@
 package fr.isen.cheveux.androiderestaurant
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import fr.isen.cheveux.androiderestaurant.adapter.ImageFragmentStateAdapter
 import fr.isen.cheveux.androiderestaurant.adapter.IngredientAdapter
 import fr.isen.cheveux.androiderestaurant.adapter.PriceAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityFoodBinding
+import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.model.PlateData
 import fr.isen.cheveux.androiderestaurant.model.PriceData
 
@@ -38,18 +39,29 @@ class FoodActivity : AppCompatActivity() {
         binding.foodPrices.layoutManager = LinearLayoutManager(this)
         binding.foodPrices.adapter = PriceAdapter(plate.prices) { priceData, count ->
             command = command.plus(Pair(priceData, count))
-            Log.d("FoodActivity", command.toString())
             if (command.isNotEmpty()) {
                 binding.buttonCommand.visibility = View.VISIBLE
                 binding.buttonCommand.text =
                     ("Total "
-                            + command.entries.map { entry -> entry.key.price * entry.value }
+                            + command.entries.map { it.key.price * it.value }
                         .reduce { acc, entry -> acc + entry }
                         .toString()
                             + getString(R.string.currency_euro))
             } else {
                 binding.buttonCommand.visibility = View.GONE
             }
+        }
+
+        binding.buttonCommand.setOnClickListener {
+            val cart = CartData.getInstance(this)
+            cart.addItems(command)
+            cart.save(this)
+            (binding.foodPrices.adapter as PriceAdapter).resetCounts()
+            Snackbar.make(binding.root, "Votre panier a de nouveaux éléments.", Snackbar.LENGTH_LONG)
+                .setAction("Voir le panier") {
+
+                }
+                .show()
         }
     }
 }

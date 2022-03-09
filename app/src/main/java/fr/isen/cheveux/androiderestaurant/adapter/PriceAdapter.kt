@@ -13,9 +13,13 @@ import fr.isen.cheveux.androiderestaurant.model.PriceData
  */
 class PriceAdapter(private val dataSet: List<PriceData>, private val listener: (PriceData, Int) -> Unit) :
     RecyclerView.Adapter<PriceAdapter.ViewHolder>() {
+    private var viewHolders: List<ViewHolder> = emptyList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceAdapter.ViewHolder {
         val binding = PriceRowItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        val viewHolder = ViewHolder(binding)
+        viewHolders = viewHolders.plus(viewHolder)
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: PriceAdapter.ViewHolder, position: Int) {
@@ -23,6 +27,11 @@ class PriceAdapter(private val dataSet: List<PriceData>, private val listener: (
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    fun resetCounts() {
+        viewHolders.forEach(ViewHolder::reset)
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: PriceRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
         private var count: Int = 0
@@ -47,6 +56,10 @@ class PriceAdapter(private val dataSet: List<PriceData>, private val listener: (
                     listener(data, count)
                 }
             }
+        }
+
+        fun reset() {
+            count = 0
         }
     }
 }
