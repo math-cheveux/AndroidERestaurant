@@ -12,4 +12,6 @@
 	<string name="list_bullet" translatable="false">•</string>
 	<string name="list_hyphen_bullet" translatable="false">⁃</string>
 	<string name="reload">Reload</string>
+	<string name="minus" translatable="false">-</string>
+	<string name="plus" translatable="false">+</string>
 </resources>
