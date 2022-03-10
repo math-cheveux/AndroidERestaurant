@@ -14,4 +14,5 @@
 	<string name="reload">Reload</string>
 	<string name="minus" translatable="false">-</string>
 	<string name="plus" translatable="false">+</string>
+	<string name="cart">Cart</string>
 </resources>

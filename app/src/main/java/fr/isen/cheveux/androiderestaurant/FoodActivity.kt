@@ -1,6 +1,9 @@
 package fr.isen.cheveux.androiderestaurant
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,9 +23,10 @@ class FoodActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_food)
         binding = ActivityFoodBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.foodToolbar)
 
         val plate: PlateData = intent.getSerializableExtra(EXTRA_MESSAGE) as PlateData
         binding.foodName.text = plate.frName
@@ -39,7 +43,7 @@ class FoodActivity : AppCompatActivity() {
         binding.foodPrices.layoutManager = LinearLayoutManager(this)
         binding.foodPrices.adapter = PriceAdapter(plate.prices) { priceData, count ->
             command = command.plus(Pair(priceData, count))
-            if (command.isNotEmpty()) {
+            if (command.isNotEmpty() && command.map { it.value }.reduce { acc, itemCount -> acc + itemCount } > 0) {
                 binding.buttonCommand.visibility = View.VISIBLE
                 binding.buttonCommand.text =
                     ("Total "
@@ -57,11 +61,28 @@ class FoodActivity : AppCompatActivity() {
             cart.addItems(command)
             cart.save(this)
             (binding.foodPrices.adapter as PriceAdapter).resetCounts()
+            command = emptyMap()
+            binding.buttonCommand.visibility = View.GONE
             Snackbar.make(binding.root, "Votre panier a de nouveaux éléments.", Snackbar.LENGTH_LONG)
                 .setAction("Voir le panier") {
-
+                    startActivity(Intent(this, CartActivity::class.java))
                 }
                 .show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_common, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_cart -> {
+            startActivity(Intent(this, CartActivity::class.java))
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 }

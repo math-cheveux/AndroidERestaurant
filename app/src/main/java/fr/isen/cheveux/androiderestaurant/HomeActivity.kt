@@ -16,11 +16,10 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.homeToolbar)
 
         binding.buttonStarters.setOnClickListener {
             onClick(binding.buttonStarters.text.toString())
@@ -50,6 +49,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_reload -> {
             Api.invalidate(this)
+            true
+        }
+        R.id.action_cart -> {
+            startActivity(Intent(this, CartActivity::class.java))
             true
         }
         else -> {

@@ -7,4 +7,5 @@
 	<string name="food_ingredients_label">Ingrédients</string>
 	<string name="food_gallery_label">Galerie</string>
 	<string name="reload">Rafraîchir</string>
+	<string name="cart">Panier</string>
 </resources>

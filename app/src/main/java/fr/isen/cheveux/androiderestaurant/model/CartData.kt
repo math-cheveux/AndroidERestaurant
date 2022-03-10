@@ -38,5 +38,18 @@ data class CartData(
         outs.writeObject(this)
         outs.close()
         fos.close()
+
+        with(
+            context.getSharedPreferences(
+                "fr.isen.cheveux.androiderestaurant.CART_PREFERENCE_FILE_KEY",
+                Context.MODE_PRIVATE
+            ).edit()
+        ) {
+            putInt("cart_", getNbItems())
+            apply()
+        }
     }
+
+    private fun getNbItems(): Int =
+        if (items.isNotEmpty()) items.map { it.value }.reduce { acc, amount -> acc + amount } else 0
 }

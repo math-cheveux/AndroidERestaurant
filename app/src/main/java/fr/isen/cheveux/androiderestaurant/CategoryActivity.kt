@@ -2,6 +2,8 @@ package fr.isen.cheveux.androiderestaurant
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +20,10 @@ class CategoryActivity : AppCompatActivity(), Response.Listener<ApiData> {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_category)
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.categoryToolbar)
 
         message = intent.getStringExtra(EXTRA_MESSAGE)
 
@@ -28,6 +31,21 @@ class CategoryActivity : AppCompatActivity(), Response.Listener<ApiData> {
 
         binding.categoryList.layoutManager = LinearLayoutManager(this)
         Api.recover(this, this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_common, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_cart -> {
+            startActivity(Intent(this, CartActivity::class.java))
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onResponse(response: ApiData?) {
