@@ -2,10 +2,7 @@ package fr.isen.cheveux.androiderestaurant
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -17,7 +14,7 @@ import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.model.PlateData
 import fr.isen.cheveux.androiderestaurant.model.PriceData
 
-class FoodActivity : AppCompatActivity() {
+class FoodActivity : CartAppCompatActivity(R.menu.menu_common) {
     private lateinit var binding: ActivityFoodBinding
     private var command: Map<PriceData, Int> = HashMap()
 
@@ -63,26 +60,12 @@ class FoodActivity : AppCompatActivity() {
             (binding.foodPrices.adapter as PriceAdapter).resetCounts()
             command = emptyMap()
             binding.buttonCommand.visibility = View.GONE
+            setupBadge()
             Snackbar.make(binding.root, "Votre panier a de nouveaux éléments.", Snackbar.LENGTH_LONG)
                 .setAction("Voir le panier") {
                     startActivity(Intent(this, CartActivity::class.java))
                 }
                 .show()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_common, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_cart -> {
-            startActivity(Intent(this, CartActivity::class.java))
-            true
-        }
-        else -> {
-            super.onOptionsItemSelected(item)
         }
     }
 }

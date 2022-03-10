@@ -2,16 +2,15 @@ package fr.isen.cheveux.androiderestaurant
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityHomeBinding
 import fr.isen.cheveux.androiderestaurant.service.Api
 
 const val EXTRA_MESSAGE = "fr.isen.cheveux.androidrestaurant.MESSAGE"
+const val CART_PREFERENCE_FILENAME = "fr.isen.cheveux.androiderestaurant.CART_PREFERENCE_FILE_KEY"
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : CartAppCompatActivity(R.menu.menu_home) {
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,18 +40,9 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_home, menu)
-        return true
-    }
-
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_reload -> {
             Api.invalidate(this)
-            true
-        }
-        R.id.action_cart -> {
-            startActivity(Intent(this, CartActivity::class.java))
             true
         }
         else -> {

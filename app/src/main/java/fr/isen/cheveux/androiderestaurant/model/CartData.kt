@@ -1,6 +1,7 @@
 package fr.isen.cheveux.androiderestaurant.model
 
 import android.content.Context
+import fr.isen.cheveux.androiderestaurant.CART_PREFERENCE_FILENAME
 import java.io.*
 
 /**
@@ -41,11 +42,11 @@ data class CartData(
 
         with(
             context.getSharedPreferences(
-                "fr.isen.cheveux.androiderestaurant.CART_PREFERENCE_FILE_KEY",
+                CART_PREFERENCE_FILENAME,
                 Context.MODE_PRIVATE
             ).edit()
         ) {
-            putInt("cart_", getNbItems())
+            putInt("cart_count", getNbItems())
             apply()
         }
     }
