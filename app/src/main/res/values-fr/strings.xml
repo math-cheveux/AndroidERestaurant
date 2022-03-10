@@ -8,4 +8,6 @@
 	<string name="food_gallery_label">Galerie</string>
 	<string name="reload">Rafraîchir</string>
 	<string name="cart">Panier</string>
+	<string name="your_cart">Votre panier</string>
+	<string name="order">Commander</string>
 </resources>

@@ -5,7 +5,9 @@ import java.util.*
 
 data class PriceData(
     var id: Int = 0,
+    @SerializedName("id_pizza")
     var pizzaId: Int = 0,
+    @SerializedName("id_size")
     var sizeId: Int = 0,
     var price: Float = 0f,
     @SerializedName("create_date")
@@ -13,4 +15,15 @@ data class PriceData(
     @SerializedName("update_date")
     var updateDate: Date? = null,
     var size: String = ""
-) : java.io.Serializable
+) : java.io.Serializable {
+    fun getPlate(apiData: ApiData): PlateData? {
+        for (categoryData in apiData.data) {
+            for (plateData in categoryData.items) {
+                if (plateData.id == pizzaId) {
+                    return plateData
+                }
+            }
+        }
+        return null
+    }
+}

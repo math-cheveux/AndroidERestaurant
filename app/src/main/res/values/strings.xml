@@ -15,4 +15,6 @@
 	<string name="minus" translatable="false">-</string>
 	<string name="plus" translatable="false">+</string>
 	<string name="cart">Cart</string>
+	<string name="your_cart">Your cart</string>
+	<string name="order">Order</string>
 </resources>

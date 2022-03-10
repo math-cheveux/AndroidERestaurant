@@ -21,7 +21,7 @@ data class CartData(
                 ins.close()
                 fis.close()
                 obj
-            } catch (e: FileNotFoundException) {
+            } catch (e: Exception) {
                 CartData(HashMap())
             }
         }

@@ -1,6 +1,5 @@
 package fr.isen.cheveux.androiderestaurant.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +41,6 @@ class PriceAdapter(private val dataSet: List<PriceData>, private val listener: (
                 binding.itemPriceValue.text = (data.price.toString() + resources.getString(R.string.currency_euro))
                 binding.textCount.text = count.toString()
                 binding.buttonMinus.setOnClickListener {
-                    Log.d("PriceAdapter", "minus")
                     if (count > 0) {
                         count--
                         binding.textCount.text = count.toString()
@@ -50,7 +48,6 @@ class PriceAdapter(private val dataSet: List<PriceData>, private val listener: (
                     }
                 }
                 binding.buttonPlus.setOnClickListener {
-                    Log.d("PriceAdapter", "plus")
                     count++
                     binding.textCount.text = count.toString()
                     listener(data, count)
