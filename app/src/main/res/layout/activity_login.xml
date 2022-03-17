@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".LoginActivity">
+
+	<LinearLayout
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
+		android:gravity="center_horizontal"
+		android:orientation="vertical"
+		android:animateLayoutChanges="true"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/lastNameLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/last_name"
+			android:importantForAutofill="no"
+			android:minHeight="48dp"
+			android:animateLayoutChanges="true">
+
+			<EditText
+				android:id="@+id/editLastName"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:ems="10"
+				android:inputType="textPersonName" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/firstNameLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="@string/first_name"
+			android:importantForAutofill="no"
+			android:minHeight="48dp"
+			android:animateLayoutChanges="true">
+
+			<EditText
+				android:id="@+id/editFirstName"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:ems="10"
+				android:inputType="textPersonName" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/addressLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="@string/address"
+			android:importantForAutofill="no"
+			android:minHeight="48dp"
+			android:animateLayoutChanges="true">
+
+			<EditText
+				android:id="@+id/editAddress"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:ems="10"
+				android:inputType="textPostalAddress" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="@string/email"
+			android:importantForAutofill="no"
+			android:minHeight="48dp">
+
+			<EditText
+				android:id="@+id/editEmail"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:ems="10"
+				android:inputType="textEmailAddress" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="@string/password"
+			android:importantForAutofill="no"
+			android:minHeight="48dp"
+			app:passwordToggleEnabled="true"
+			app:passwordToggleTintMode="multiply">
+
+			<EditText
+				android:id="@+id/editPassword"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:ems="10"
+				android:inputType="textPassword" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/confirmLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="@string/confirm_password"
+			android:importantForAutofill="no"
+			android:minHeight="48dp"
+			android:animateLayoutChanges="true"
+			app:passwordToggleEnabled="true">
+
+			<EditText
+				android:id="@+id/editConfirm"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:ems="10"
+				android:inputType="textPassword" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<Button
+			android:id="@+id/loginButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:text="@string/default_preview" />
+
+		<TextView
+			android:id="@+id/textSwitchLoginMode"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:text="@string/default_preview"
+			android:textColor="?attr/colorPrimary" />
+
+	</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

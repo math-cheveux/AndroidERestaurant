@@ -17,4 +17,14 @@
 	<string name="cart">Cart</string>
 	<string name="your_cart">Your cart</string>
 	<string name="order">Order</string>
+	<string name="first_name">First name</string>
+	<string name="last_name">Last name</string>
+	<string name="address">Address</string>
+	<string name="email">Email</string>
+	<string name="password">Password</string>
+	<string name="confirm_password">Confirm password</string>
+	<string name="sign_in">Sign in</string>
+	<string name="register">Register</string>
+	<string name="no_account">No account? Create one!</string>
+	<string name="have_account">Have an account? Sign in!</string>
 </resources>

@@ -1,5 +1,6 @@
 package fr.isen.cheveux.androiderestaurant
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -26,7 +27,7 @@ class CartActivity : AppCompatActivity() {
 
         if (cart.items.isNotEmpty()) {
             binding.cartButton.setOnClickListener {
-
+                startActivity(Intent(this, LoginActivity::class.java))
             }
         } else {
             binding.cartButton.visibility = View.GONE
