@@ -2,11 +2,14 @@ package fr.isen.cheveux.androiderestaurant
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityLoginBinding
 import fr.isen.cheveux.androiderestaurant.model.User
+import fr.isen.cheveux.androiderestaurant.service.Api
+import fr.isen.cheveux.androiderestaurant.service.LoginService
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -20,7 +23,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginButton.setOnClickListener {
             if (binding.editPassword.text.toString() != binding.editConfirm.text.toString()) {
-                Toast.makeText(this, "Passwords are not identical.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.password_error), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
             val user = User(
                 binding.editLastName.text.toString().trim(),
@@ -29,6 +33,19 @@ class LoginActivity : AppCompatActivity() {
                 binding.editEmail.text.toString().trim(),
                 binding.editPassword.text.toString().trim()
             )
+            when (mode) {
+                Mode.REGISTER -> {
+                    Api.register(this, user) { ack, response ->
+                        if (ack) {
+                            LoginService(this).save(response.data)
+                            finish()
+                        } else {
+                            Log.d(TAG, "onCreate: " + response.msg + " (code " + response.code + ")")
+                            Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
         }
         binding.textSwitchLoginMode.setOnClickListener {
             mode = mode.reverse()

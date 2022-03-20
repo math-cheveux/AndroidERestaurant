@@ -20,4 +20,7 @@
 	<string name="register">S\'enregistrer</string>
 	<string name="no_account">Pas de compte ? En créer un !</string>
 	<string name="have_account">Déjà enregistré ? Se connecter !</string>
+	<string name="api_error">Erreur API.</string>
+	<string name="form_error">Formulaire non valide.</string>
+	<string name="password_error">Les mots de passe ne correspondent pas.</string>
 </resources>

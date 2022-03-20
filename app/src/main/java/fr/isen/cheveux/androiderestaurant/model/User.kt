@@ -12,7 +12,7 @@ data class User(
     val email: String,
     val password: String
 ) {
-    fun isValid(): Boolean = lastName.isNotEmpty()
+    fun isValidForInscription(): Boolean = lastName.isNotEmpty()
             && firstName.isNotEmpty()
             && address.isNotEmpty()
             && Patterns.EMAIL_ADDRESS.matcher(email).matches()

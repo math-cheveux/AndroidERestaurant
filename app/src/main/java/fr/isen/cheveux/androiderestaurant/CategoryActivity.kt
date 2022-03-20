@@ -4,14 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.Response
 import fr.isen.cheveux.androiderestaurant.adapter.CategoryAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityCategoryBinding
 import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CategoryData
 import fr.isen.cheveux.androiderestaurant.service.Api
 
-class CategoryActivity : CartAppCompatActivity(R.menu.menu_common), Response.Listener<ApiData> {
+class CategoryActivity : CartAppCompatActivity(R.menu.menu_common) {
     private lateinit var binding: ActivityCategoryBinding
     private var message: String? = null
 
@@ -27,12 +26,15 @@ class CategoryActivity : CartAppCompatActivity(R.menu.menu_common), Response.Lis
         binding.categoryTitle.apply { text = message }
 
         binding.categoryList.layoutManager = LinearLayoutManager(this)
-        Api.recover(this, this)
+        Api.recover(this, this::onResponse)
     }
 
-    override fun onResponse(response: ApiData?) {
+    private fun onResponse(ack: Boolean, response: ApiData) {
         binding.categoryLoadingBar.visibility = View.GONE
-        val category: CategoryData? = response?.data?.find { categoryData -> categoryData.frName == message }
+        if (!ack) {
+            return
+        }
+        val category: CategoryData? = response.data.find { categoryData -> categoryData.frName == message }
         if (category != null) {
             binding.categoryList.adapter = CategoryAdapter(category) {
                 val intent = Intent(this, FoodActivity::class.java).apply {

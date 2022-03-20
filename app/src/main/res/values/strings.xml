@@ -27,4 +27,7 @@
 	<string name="register">Register</string>
 	<string name="no_account">No account? Create one!</string>
 	<string name="have_account">Have an account? Sign in!</string>
+	<string name="api_error">API error.</string>
+	<string name="form_error">Invalid form.</string>
+	<string name="password_error">Passwords are not identical.</string>
 </resources>

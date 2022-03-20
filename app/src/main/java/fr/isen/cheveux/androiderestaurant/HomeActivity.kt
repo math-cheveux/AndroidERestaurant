@@ -6,7 +6,9 @@ import android.view.MenuItem
 import android.widget.Toast
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityHomeBinding
 import fr.isen.cheveux.androiderestaurant.service.Api
+import fr.isen.cheveux.androiderestaurant.service.LoginService
 
+const val TAG = "fr.isen.cheveux.androidrestaurant.debug"
 const val EXTRA_MESSAGE = "fr.isen.cheveux.androidrestaurant.MESSAGE"
 const val CART_PREFERENCE_FILENAME = "fr.isen.cheveux.androiderestaurant.CART_PREFERENCE_FILE_KEY"
 
@@ -43,6 +45,7 @@ class HomeActivity : CartAppCompatActivity(R.menu.menu_home) {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_reload -> {
             Api.invalidate(this)
+            LoginService(this).disconnect()
             true
         }
         else -> {
