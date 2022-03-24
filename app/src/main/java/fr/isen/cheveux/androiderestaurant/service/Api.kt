@@ -101,6 +101,23 @@ class Api {
             }
         }
 
+        fun signIn(ctx: Context, user: User, then: RegisterListener) {
+            if (user.isValidForConnection()) {
+                val params = HashMap<String, String>()
+                params["email"] = user.email
+                params["password"] = user.password
+                request(ctx, "user/login", params) { ack, response ->
+                    var convert = RegisterData(ctx.resources.getString(R.string.api_error), code = -1)
+                    if (ack || response.length() > 0) {
+                        convert = convertRawResponse(response, RegisterData::class.java)
+                    }
+                    then.onResponse(ack && convert.code == 200, convert)
+                }
+            } else {
+                Toast.makeText(ctx, ctx.resources.getString(R.string.form_error), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         fun invalidate(ctx: Context) {
             VolleySingleton.getInstance(ctx).invalidate()
         }

@@ -15,6 +15,7 @@ data class User(
     fun isValidForInscription(): Boolean = lastName.isNotEmpty()
             && firstName.isNotEmpty()
             && address.isNotEmpty()
-            && Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            && password.isNotEmpty()
+            && isValidForConnection()
+
+    fun isValidForConnection(): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.isNotEmpty()
 }

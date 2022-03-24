@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityLoginBinding
+import fr.isen.cheveux.androiderestaurant.model.RegisterData
 import fr.isen.cheveux.androiderestaurant.model.User
 import fr.isen.cheveux.androiderestaurant.service.Api
 import fr.isen.cheveux.androiderestaurant.service.LoginService
@@ -22,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         refresh()
 
         binding.loginButton.setOnClickListener {
-            if (binding.editPassword.text.toString() != binding.editConfirm.text.toString()) {
+            if (mode == Mode.REGISTER && binding.editPassword.text.toString() != binding.editConfirm.text.toString()) {
                 Toast.makeText(this, resources.getString(R.string.password_error), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -33,18 +34,18 @@ class LoginActivity : AppCompatActivity() {
                 binding.editEmail.text.toString().trim(),
                 binding.editPassword.text.toString().trim()
             )
-            when (mode) {
-                Mode.REGISTER -> {
-                    Api.register(this, user) { ack, response ->
-                        if (ack) {
-                            LoginService(this).save(response.data)
-                            finish()
-                        } else {
-                            Log.d(TAG, "onCreate: " + response.msg + " (code " + response.code + ")")
-                            Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
-                        }
-                    }
+            val then: (ack: Boolean, response: RegisterData) -> Unit = { ack, response ->
+                if (ack) {
+                    LoginService(this).save(response.data)
+                    finish()
+                } else {
+                    Log.d(TAG, "onCreate: " + response.msg + " (code " + response.code + ")")
+                    Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
                 }
+            }
+            when (mode) {
+                Mode.REGISTER -> Api.register(this, user, then)
+                Mode.SIGN_IN -> Api.signIn(this, user, then)
             }
         }
         binding.textSwitchLoginMode.setOnClickListener {
