@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityLoginBinding
 import fr.isen.cheveux.androiderestaurant.model.RegisterData
 import fr.isen.cheveux.androiderestaurant.model.User
-import fr.isen.cheveux.androiderestaurant.service.Api
+import fr.isen.cheveux.androiderestaurant.service.AppApi
 import fr.isen.cheveux.androiderestaurant.service.LoginService
 
 class LoginActivity : AppCompatActivity() {
@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, resources.getString(R.string.password_error), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            val api = AppApi(this)
             val user = User(
                 binding.editLastName.text.toString().trim(),
                 binding.editFirstName.text.toString().trim(),
@@ -44,8 +45,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             when (mode) {
-                Mode.REGISTER -> Api.register(this, user, then)
-                Mode.SIGN_IN -> Api.signIn(this, user, then)
+                Mode.REGISTER -> api.register(user, then)
+                Mode.SIGN_IN -> api.signIn(user, then)
             }
         }
         binding.textSwitchLoginMode.setOnClickListener {

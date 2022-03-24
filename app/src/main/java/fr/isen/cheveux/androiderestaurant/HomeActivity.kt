@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityHomeBinding
-import fr.isen.cheveux.androiderestaurant.service.Api
+import fr.isen.cheveux.androiderestaurant.service.AppApi
 import fr.isen.cheveux.androiderestaurant.service.LoginService
 
 const val TAG = "fr.isen.cheveux.androidrestaurant.debug"
@@ -44,7 +44,7 @@ class HomeActivity : CartAppCompatActivity(R.menu.menu_home) {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_reload -> {
-            Api.invalidate(this)
+            AppApi(this).invalidate()
             LoginService(this).disconnect()
             true
         }

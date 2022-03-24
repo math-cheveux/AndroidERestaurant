@@ -1,16 +1,14 @@
 package fr.isen.cheveux.androiderestaurant.service
 
 import android.content.Context
-import android.widget.Toast
-import com.android.volley.*
+import com.android.volley.Cache
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.NetworkResponse
+import com.android.volley.Response
 import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.JsonObjectRequest
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
-import fr.isen.cheveux.androiderestaurant.R
-import fr.isen.cheveux.androiderestaurant.model.ApiData
-import fr.isen.cheveux.androiderestaurant.model.RegisterData
-import fr.isen.cheveux.androiderestaurant.model.User
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.ParseException
@@ -20,108 +18,50 @@ import java.util.*
 /**
  * @author math-cheveux
  */
-class Api {
-    companion object {
-        private const val url = "http://test.api.catering.bluecodegames.com/"
-
-        private fun request(
-            ctx: Context,
-            uri: String,
-            params: HashMap<String, String> = HashMap(),
-            useCache: Boolean = false,
-            then: RawListener
-        ) {
-            params["id_shop"] = "1"
-
-            val method = Request.Method.POST
-            val requestUrl = url + uri
-            val jsonParams = JSONObject(params.toMap())
-            val onOK = Response.Listener<JSONObject> {
-                then.onResponse(true, it)
+open class Api(protected val ctx: Context, private val baseUrl: String, private val method: Int) {
+    protected fun request(
+        url: String,
+        params: HashMap<String, String> = HashMap(),
+        requestMethod: Int = method,
+        useCache: Boolean = false,
+        then: RawListener
+    ) {
+        val requestUrl = baseUrl + url
+        val jsonParams = JSONObject(params.toMap())
+        val onOK = Response.Listener<JSONObject> {
+            then.onResponse(true, it)
+        }
+        val onError = Response.ErrorListener {
+            val json = try {
+                JSONObject(String(it.networkResponse.data))
+            } catch (e: JSONException) {
+                JSONObject()
             }
-            val onError = Response.ErrorListener {
-                val json = try {
-                    JSONObject(String(it.networkResponse.data))
-                } catch (e: JSONException) {
-                    JSONObject()
-                }
-                then.onResponse(false, json)
-            }
-
-            val request: JsonObjectRequest = if (useCache) {
-                CacheRequest(method, requestUrl, jsonParams, onOK, onError)
-            } else {
-                JsonObjectRequest(method, requestUrl, jsonParams, onOK, onError)
-            }
-
-            request.retryPolicy = DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f)
-
-            VolleySingleton.getInstance(ctx).addToRequestQueue(request)
+            then.onResponse(false, json)
         }
 
-        private fun <T> convertRawResponse(
-            response: JSONObject,
-            classToConvert: Class<T>,
-            dateFormat: String = "yyyy-MM-dd HH:mm:ss"
-        ): T = GsonBuilder().registerTypeAdapter(Date::class.java, JsonDeserializer<Date> { json, _, _ ->
-            return@JsonDeserializer try {
-                SimpleDateFormat(dateFormat).parse(json.asString)
-            } catch (e: ParseException) {
-                null
-            }
-        }).create().fromJson(response.toString(), classToConvert)
-
-        fun recover(ctx: Context, then: DataListener) {
-            request(ctx, "menu", useCache = true) { ack, response ->
-                then.onResponse(
-                    ack,
-                    if (ack) convertRawResponse(response, ApiData::class.java)
-                    else ApiData(emptyList())
-                )
-            }
+        val request: JsonObjectRequest = if (useCache) {
+            CacheRequest(requestMethod, requestUrl, jsonParams, onOK, onError)
+        } else {
+            JsonObjectRequest(requestMethod, requestUrl, jsonParams, onOK, onError)
         }
 
-        fun register(ctx: Context, user: User, then: RegisterListener) {
-            if (user.isValidForInscription()) {
-                val params = HashMap<String, String>()
-                params["firstname"] = user.firstName
-                params["lastname"] = user.lastName
-                params["address"] = user.address
-                params["email"] = user.email
-                params["password"] = user.password
-                request(ctx, "user/register", params) { ack, response ->
-                    var convert = RegisterData(ctx.resources.getString(R.string.api_error), code = -1)
-                    if (ack || response.length() > 0) {
-                        convert = convertRawResponse(response, RegisterData::class.java)
-                    }
-                    then.onResponse(ack && convert.code == 200, convert)
-                }
-            } else {
-                Toast.makeText(ctx, ctx.resources.getString(R.string.form_error), Toast.LENGTH_SHORT).show()
-            }
-        }
+        request.retryPolicy = DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f)
 
-        fun signIn(ctx: Context, user: User, then: RegisterListener) {
-            if (user.isValidForConnection()) {
-                val params = HashMap<String, String>()
-                params["email"] = user.email
-                params["password"] = user.password
-                request(ctx, "user/login", params) { ack, response ->
-                    var convert = RegisterData(ctx.resources.getString(R.string.api_error), code = -1)
-                    if (ack || response.length() > 0) {
-                        convert = convertRawResponse(response, RegisterData::class.java)
-                    }
-                    then.onResponse(ack && convert.code == 200, convert)
-                }
-            } else {
-                Toast.makeText(ctx, ctx.resources.getString(R.string.form_error), Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        fun invalidate(ctx: Context) {
-            VolleySingleton.getInstance(ctx).invalidate()
-        }
+        VolleySingleton.getInstance(ctx).addToRequestQueue(request)
     }
+
+    protected fun <T> convertRawResponse(
+        response: JSONObject,
+        classToConvert: Class<T>,
+        dateFormat: String = "yyyy-MM-dd HH:mm:ss"
+    ): T = GsonBuilder().registerTypeAdapter(Date::class.java, JsonDeserializer<Date> { json, _, _ ->
+        return@JsonDeserializer try {
+            SimpleDateFormat(dateFormat, Locale.US).parse(json.asString)
+        } catch (e: ParseException) {
+            null
+        }
+    }).create().fromJson(response.toString(), classToConvert)
 
 
     private class CacheRequest(
@@ -171,8 +111,4 @@ class Api {
     }
 
     fun interface RawListener : Listener<JSONObject>
-
-    fun interface DataListener : Listener<ApiData>
-
-    fun interface RegisterListener : Listener<RegisterData>
 }

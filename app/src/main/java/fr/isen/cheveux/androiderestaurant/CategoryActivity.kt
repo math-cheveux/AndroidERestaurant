@@ -8,7 +8,7 @@ import fr.isen.cheveux.androiderestaurant.adapter.CategoryAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityCategoryBinding
 import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CategoryData
-import fr.isen.cheveux.androiderestaurant.service.Api
+import fr.isen.cheveux.androiderestaurant.service.AppApi
 
 class CategoryActivity : CartAppCompatActivity(R.menu.menu_common) {
     private lateinit var binding: ActivityCategoryBinding
@@ -26,7 +26,7 @@ class CategoryActivity : CartAppCompatActivity(R.menu.menu_common) {
         binding.categoryTitle.apply { text = message }
 
         binding.categoryList.layoutManager = LinearLayoutManager(this)
-        Api.recover(this, this::onResponse)
+        AppApi(this).recover(this::onResponse)
     }
 
     private fun onResponse(ack: Boolean, response: ApiData) {
