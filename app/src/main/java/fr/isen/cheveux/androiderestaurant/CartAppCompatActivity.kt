@@ -30,6 +30,11 @@ open class CartAppCompatActivity(@MenuRes private val menuRes: Int) : AppCompatA
         return true
     }
 
+    override fun onResume() {
+        setupBadge()
+        super.onResume()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_cart -> {
             startActivity(Intent(this, CartActivity::class.java))
@@ -47,8 +52,8 @@ open class CartAppCompatActivity(@MenuRes private val menuRes: Int) : AppCompatA
                 Context.MODE_PRIVATE
             ).getInt("cart_count", 0)
             if (mCartItemCount == 0) {
-                if (textCartItemCount!!.visibility != View.GONE) {
-                    textCartItemCount!!.visibility = View.GONE
+                if (textCartItemCount!!.visibility != View.INVISIBLE) {
+                    textCartItemCount!!.visibility = View.INVISIBLE
                 }
             } else {
                 textCartItemCount!!.text = java.lang.String.valueOf(mCartItemCount.coerceAtMost(99))
