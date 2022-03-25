@@ -9,6 +9,7 @@ import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.model.PriceData
 import fr.isen.cheveux.androiderestaurant.service.CartService
+import fr.isen.cheveux.androiderestaurant.service.DataService
 
 class CartAdapter(
     private val apiData: ApiData,
@@ -27,7 +28,7 @@ class CartAdapter(
 
     inner class ViewHolder(private val binding: CartRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(priceDataIntPair: Pair<PriceData, Int>) {
-            binding.cartItemName.text = priceDataIntPair.first.getPlate(apiData)?.frName
+            binding.cartItemName.text = DataService().getPlate(priceDataIntPair.first, apiData)?.frName
                 ?: itemView.resources.getString(R.string.default_unknown)
             binding.cartItemSize.text = priceDataIntPair.first.size
             binding.cartItemCount.text = priceDataIntPair.second.toString()

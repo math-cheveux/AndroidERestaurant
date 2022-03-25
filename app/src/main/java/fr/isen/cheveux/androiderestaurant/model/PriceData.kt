@@ -15,15 +15,4 @@ data class PriceData(
     @SerializedName("update_date")
     var updateDate: Date? = null,
     var size: String = ""
-) : java.io.Serializable {
-    fun getPlate(apiData: ApiData): PlateData? {
-        for (categoryData in apiData.data) {
-            for (plateData in categoryData.items) {
-                if (plateData.id == pizzaId) {
-                    return plateData
-                }
-            }
-        }
-        return null
-    }
-}
+) : java.io.Serializable
