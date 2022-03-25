@@ -24,7 +24,7 @@ class AppApi(ctx: Context) : Api(ctx, "http://test.api.catering.bluecodegames.co
     }
 
     fun register(user: User, then: RegisterListener) {
-        if (user.isValidForInscription()) {
+        if (LoginService(ctx).isUserValidForInscription(user)) {
             val params = HashMap<String, String>()
             params["firstname"] = user.firstName
             params["lastname"] = user.lastName
@@ -38,7 +38,7 @@ class AppApi(ctx: Context) : Api(ctx, "http://test.api.catering.bluecodegames.co
     }
 
     fun signIn(user: User, then: RegisterListener) {
-        if (user.isValidForConnection()) {
+        if (LoginService(ctx).isUserValidForConnection(user)) {
             val params = HashMap<String, String>()
             params["email"] = user.email
             params["password"] = user.password
