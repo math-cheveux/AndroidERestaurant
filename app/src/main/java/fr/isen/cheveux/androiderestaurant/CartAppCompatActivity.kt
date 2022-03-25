@@ -1,6 +1,5 @@
 package fr.isen.cheveux.androiderestaurant
 
-import android.content.Context
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import fr.isen.cheveux.androiderestaurant.service.CartService
 
 /**
  * @author math-cheveux
@@ -47,10 +47,7 @@ open class CartAppCompatActivity(@MenuRes private val menuRes: Int) : AppCompatA
 
     protected fun setupBadge() {
         if (textCartItemCount != null) {
-            val mCartItemCount = getSharedPreferences(
-                CART_PREFERENCE_FILENAME,
-                Context.MODE_PRIVATE
-            ).getInt("cart_count", 0)
+            val mCartItemCount = CartService(this).getNbItems()
             if (mCartItemCount == 0) {
                 if (textCartItemCount!!.visibility != View.INVISIBLE) {
                     textCartItemCount!!.visibility = View.INVISIBLE

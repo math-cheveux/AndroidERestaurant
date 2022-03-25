@@ -10,7 +10,6 @@ import fr.isen.cheveux.androiderestaurant.service.LoginService
 
 const val TAG = "fr.isen.cheveux.androidrestaurant.debug"
 const val EXTRA_MESSAGE = "fr.isen.cheveux.androidrestaurant.MESSAGE"
-const val CART_PREFERENCE_FILENAME = "fr.isen.cheveux.androiderestaurant.CART_PREFERENCE_FILE_KEY"
 
 class HomeActivity : CartAppCompatActivity(R.menu.menu_home) {
     private lateinit var binding: ActivityHomeBinding

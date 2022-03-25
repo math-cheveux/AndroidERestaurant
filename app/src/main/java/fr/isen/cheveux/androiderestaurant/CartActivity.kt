@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.cheveux.androiderestaurant.adapter.CartAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityCartBinding
-import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.service.AppApi
+import fr.isen.cheveux.androiderestaurant.service.CartService
 import fr.isen.cheveux.androiderestaurant.service.LoginService
 
 class CartActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class CartActivity : AppCompatActivity() {
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val cart = CartData.getInstance(this)
+        val cart = CartService(this).getInstance()
 
         binding.cartItems.layoutManager = LinearLayoutManager(this)
         AppApi(this).recover { ack, response ->

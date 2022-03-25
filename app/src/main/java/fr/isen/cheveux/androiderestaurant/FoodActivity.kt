@@ -10,9 +10,9 @@ import fr.isen.cheveux.androiderestaurant.adapter.ImageFragmentStateAdapter
 import fr.isen.cheveux.androiderestaurant.adapter.IngredientAdapter
 import fr.isen.cheveux.androiderestaurant.adapter.PriceAdapter
 import fr.isen.cheveux.androiderestaurant.databinding.ActivityFoodBinding
-import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.model.PlateData
 import fr.isen.cheveux.androiderestaurant.model.PriceData
+import fr.isen.cheveux.androiderestaurant.service.CartService
 
 class FoodActivity : CartAppCompatActivity(R.menu.menu_common) {
     private lateinit var binding: ActivityFoodBinding
@@ -54,9 +54,10 @@ class FoodActivity : CartAppCompatActivity(R.menu.menu_common) {
         }
 
         binding.buttonCommand.setOnClickListener {
-            val cart = CartData.getInstance(this)
-            cart.addItems(command)
-            cart.save(this)
+            val cartService = CartService(this)
+            val cart = cartService.getInstance()
+            cartService.addItems(cart, command)
+            cartService.save(cart)
             (binding.foodPrices.adapter as PriceAdapter).resetCounts()
             command = emptyMap()
             binding.buttonCommand.visibility = View.GONE

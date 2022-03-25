@@ -8,6 +8,7 @@ import fr.isen.cheveux.androiderestaurant.databinding.CartRowItemBinding
 import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.model.PriceData
+import fr.isen.cheveux.androiderestaurant.service.CartService
 
 class CartAdapter(
     private val apiData: ApiData,
@@ -35,7 +36,7 @@ class CartAdapter(
 
             binding.deleteCartItemButton.setOnClickListener {
                 cartData.items = cartData.items.minus(priceDataIntPair.first)
-                cartData.save(itemView.context)
+                CartService(itemView.context).save(cartData)
                 notifyDataSetChanged()
             }
         }
