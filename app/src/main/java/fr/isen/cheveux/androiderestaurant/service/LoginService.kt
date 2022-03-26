@@ -4,38 +4,35 @@ import android.content.Context
 import android.util.Patterns
 import fr.isen.cheveux.androiderestaurant.model.LoginData
 import fr.isen.cheveux.androiderestaurant.model.User
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 
 /**
  * @author math-cheveux
  */
 class LoginService(private val ctx: Context) {
     companion object {
-        private const val FILENAME = "user.save"
+        private const val LOGIN_PREFERENCE_FILENAME = "fr.isen.cheveux.androiderestaurant.LOGIN_PREFERENCE_FILE_KEY"
+        private const val USER_ID_KEY = "user_id"
     }
 
-    fun getInstance(): LoginData? = try {
-        val fis: FileInputStream = ctx.openFileInput(FILENAME)
-        val ins = ObjectInputStream(fis)
-        val obj = ins.readObject() as LoginData
-        ins.close()
-        fis.close()
-        obj
-    } catch (e: Exception) {
-        null
-    }
-
-    fun isConnected(): Boolean = getInstance() != null
+    fun isConnected(): Boolean = ctx.getSharedPreferences(
+        LOGIN_PREFERENCE_FILENAME,
+        Context.MODE_PRIVATE
+    ).contains(USER_ID_KEY)
 
     fun save(data: LoginData?) {
-        val fos: FileOutputStream = ctx.openFileOutput(FILENAME, Context.MODE_PRIVATE)
-        val outs = ObjectOutputStream(fos)
-        outs.writeObject(data?.id)
-        outs.close()
-        fos.close()
+        with(
+            ctx.getSharedPreferences(
+                LOGIN_PREFERENCE_FILENAME,
+                Context.MODE_PRIVATE
+            ).edit()
+        ) {
+            if (data != null) {
+                putInt(USER_ID_KEY, data.id)
+            } else {
+                remove(USER_ID_KEY)
+            }
+            apply()
+        }
     }
 
     fun disconnect() = save(null)
