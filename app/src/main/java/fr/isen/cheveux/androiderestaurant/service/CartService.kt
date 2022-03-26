@@ -15,6 +15,7 @@ class CartService(private val ctx: Context) {
     companion object {
         private const val FILENAME = "cart.save"
         private const val CART_PREFERENCE_FILENAME = "fr.isen.cheveux.androiderestaurant.CART_PREFERENCE_FILE_KEY"
+        private const val CART_COUNT_KEY = "cart_count"
     }
 
     fun getInstance(): CartData = try {
@@ -47,7 +48,7 @@ class CartService(private val ctx: Context) {
                 Context.MODE_PRIVATE
             ).edit()
         ) {
-            putInt("cart_count", getNbItems(cart))
+            putInt(CART_COUNT_KEY, getNbItems(cart))
             apply()
         }
     }
@@ -58,5 +59,5 @@ class CartService(private val ctx: Context) {
     fun getNbItems(): Int = ctx.getSharedPreferences(
         CART_PREFERENCE_FILENAME,
         Context.MODE_PRIVATE
-    ).getInt("cart_count", 0)
+    ).getInt(CART_COUNT_KEY, 0)
 }
