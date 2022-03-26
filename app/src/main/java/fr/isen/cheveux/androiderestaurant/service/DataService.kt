@@ -7,12 +7,25 @@ import fr.isen.cheveux.androiderestaurant.model.PriceData
 /**
  * @author math-cheveux
  */
-class DataService {
-    fun getPlate(priceData: PriceData, apiData: ApiData): PlateData? {
+class DataService(private val apiData: ApiData) {
+    fun getPlate(priceData: PriceData): PlateData? {
         for (categoryData in apiData.data) {
             for (plateData in categoryData.items) {
                 if (plateData.id == priceData.pizzaId) {
                     return plateData
+                }
+            }
+        }
+        return null
+    }
+
+    fun getPriceById(id: Int): PriceData? {
+        for (categoryData in apiData.data) {
+            for (plateData in categoryData.items) {
+                for (priceData in plateData.prices) {
+                    if (priceData.id == id) {
+                        return priceData
+                    }
                 }
             }
         }

@@ -23,12 +23,12 @@ class CartAdapter(
     override fun getItemCount(): Int = cartData.items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cartData.items.toList()[position])
+        holder.bind(CartService(holder.itemView.context).getPrices(cartData, apiData).toList()[position])
     }
 
     inner class ViewHolder(private val binding: CartRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(priceDataIntPair: Pair<PriceData, Int>) {
-            binding.cartItemName.text = DataService().getPlate(priceDataIntPair.first, apiData)?.frName
+            binding.cartItemName.text = DataService(apiData).getPlate(priceDataIntPair.first)?.frName
                 ?: itemView.resources.getString(R.string.default_unknown)
             binding.cartItemSize.text = priceDataIntPair.first.size
             binding.cartItemCount.text = priceDataIntPair.second.toString()
@@ -36,7 +36,7 @@ class CartAdapter(
                 ((priceDataIntPair.first.price * priceDataIntPair.second).toString() + itemView.resources.getString(R.string.currency_euro))
 
             binding.deleteCartItemButton.setOnClickListener {
-                cartData.items = cartData.items.minus(priceDataIntPair.first)
+                CartService(itemView.context).removeItem(cartData, priceDataIntPair.first)
                 CartService(itemView.context).save(cartData)
                 notifyDataSetChanged()
             }

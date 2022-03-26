@@ -1,12 +1,14 @@
 package fr.isen.cheveux.androiderestaurant.service
 
 import android.content.Context
+import android.util.Log
+import com.google.gson.Gson
+import fr.isen.cheveux.androiderestaurant.TAG
+import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.model.PriceData
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
 /**
  * @author math-cheveux
@@ -19,28 +21,40 @@ class CartService(private val ctx: Context) {
     }
 
     fun getInstance(): CartData = try {
-        val fis: FileInputStream = ctx.openFileInput(FILENAME)
-        val ins = ObjectInputStream(fis)
-        val obj: CartData = ins.readObject() as CartData
-        ins.close()
-        fis.close()
-        obj
+        ctx.openFileInput(FILENAME).use { fis ->
+            InputStreamReader(fis).use { ins ->
+                Gson().fromJson(ins, CartData::class.java)
+            }
+        }
     } catch (e: Exception) {
-        CartData(HashMap())
+        Log.d(TAG, "getInstance: $e")
+        CartData(emptyMap())
+    }
+
+    fun getPrices(cart: CartData, apiData: ApiData): Map<PriceData, Int> {
+        val dataService = DataService(apiData)
+        val default = PriceData()
+        return cart.items
+            .mapKeys { entry -> dataService.getPriceById(entry.key) ?: default }
+            .filterKeys { priceData -> priceData != default }
     }
 
     fun addItems(cart: CartData, items: Map<PriceData, Int>) {
         for (item in items) {
-            cart.items = cart.items.plus(Pair(item.key, cart.items[item.key]?.plus(item.value) ?: item.value))
+            cart.items = cart.items.plus(Pair(item.key.id, cart.items[item.key.id]?.plus(item.value) ?: item.value))
         }
     }
 
+    fun removeItem(cart: CartData, item: PriceData) {
+        cart.items = cart.items.minus(item.id)
+    }
+
     fun save(cart: CartData) {
-        val fos: FileOutputStream = ctx.openFileOutput(FILENAME, Context.MODE_PRIVATE)
-        val outs = ObjectOutputStream(fos)
-        outs.writeObject(cart)
-        outs.close()
-        fos.close()
+        ctx.openFileOutput(FILENAME, Context.MODE_PRIVATE).use { fos ->
+            OutputStreamWriter(fos).use { outs ->
+                Gson().toJson(cart, outs)
+            }
+        }
 
         with(
             ctx.getSharedPreferences(
