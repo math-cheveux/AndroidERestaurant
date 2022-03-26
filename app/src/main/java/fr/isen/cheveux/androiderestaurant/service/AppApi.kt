@@ -13,6 +13,17 @@ import org.json.JSONObject
  * @author math-cheveux
  */
 class AppApi(ctx: Context) : Api(ctx, "http://test.api.catering.bluecodegames.com/", Request.Method.POST) {
+    override fun request(
+        url: String,
+        params: HashMap<String, String>,
+        requestMethod: Int,
+        useCache: Boolean,
+        then: RawListener
+    ) {
+        params["id_shop"] = "1"
+        super.request(url, params, requestMethod, useCache, then)
+    }
+
     fun recover(then: DataListener) {
         request("menu", useCache = true) { ack, response ->
             then.onResponse(

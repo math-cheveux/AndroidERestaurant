@@ -19,7 +19,7 @@ import java.util.*
  * @author math-cheveux
  */
 open class Api(protected val ctx: Context, private val baseUrl: String, private val method: Int) {
-    protected fun request(
+    protected open fun request(
         url: String,
         params: HashMap<String, String> = HashMap(),
         requestMethod: Int = method,
