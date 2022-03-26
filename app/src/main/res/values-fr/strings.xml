@@ -23,4 +23,6 @@
 	<string name="api_error">Erreur API.</string>
 	<string name="form_error">Formulaire non valide.</string>
 	<string name="password_error">Les mots de passe ne correspondent pas.</string>
+	<string name="order_success">Votre commande a été passée !</string>
+	<string name="order_error">Une erreur s\'est produite lors de la commande…</string>
 </resources>

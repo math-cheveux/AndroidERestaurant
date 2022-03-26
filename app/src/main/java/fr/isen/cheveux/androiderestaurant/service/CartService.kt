@@ -1,9 +1,7 @@
 package fr.isen.cheveux.androiderestaurant.service
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
-import fr.isen.cheveux.androiderestaurant.TAG
 import fr.isen.cheveux.androiderestaurant.model.ApiData
 import fr.isen.cheveux.androiderestaurant.model.CartData
 import fr.isen.cheveux.androiderestaurant.model.PriceData
@@ -27,7 +25,6 @@ class CartService(private val ctx: Context) {
             }
         }
     } catch (e: Exception) {
-        Log.d(TAG, "getInstance: $e")
         CartData(emptyMap())
     }
 

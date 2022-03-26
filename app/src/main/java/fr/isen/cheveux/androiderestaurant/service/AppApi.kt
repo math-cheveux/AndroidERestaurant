@@ -3,10 +3,9 @@ package fr.isen.cheveux.androiderestaurant.service
 import android.content.Context
 import android.widget.Toast
 import com.android.volley.Request
+import com.google.gson.Gson
 import fr.isen.cheveux.androiderestaurant.R
-import fr.isen.cheveux.androiderestaurant.model.ApiData
-import fr.isen.cheveux.androiderestaurant.model.RegisterData
-import fr.isen.cheveux.androiderestaurant.model.User
+import fr.isen.cheveux.androiderestaurant.model.*
 import org.json.JSONObject
 
 /**
@@ -67,6 +66,15 @@ class AppApi(ctx: Context) : Api(ctx, "http://test.api.catering.bluecodegames.co
         then.onResponse(ack && convert.code == 200, convert)
     }
 
+    fun order(userId: Int, cart: CartData, then: OrderListener) {
+        val params = HashMap<String, String>()
+        params["id_user"] = userId.toString()
+        params["msg"] = Gson().toJson(cart)
+        request("user/order", params) { ack, response ->
+            then.onResponse(ack, convertRawResponse(response, OrderData::class.java))
+        }
+    }
+
     fun invalidate() {
         VolleySingleton.getInstance(ctx).invalidate()
     }
@@ -74,4 +82,6 @@ class AppApi(ctx: Context) : Api(ctx, "http://test.api.catering.bluecodegames.co
     fun interface DataListener : Listener<ApiData>
 
     fun interface RegisterListener : Listener<RegisterData>
+
+    fun interface OrderListener : Listener<OrderData>
 }

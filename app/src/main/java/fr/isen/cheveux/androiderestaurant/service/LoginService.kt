@@ -14,6 +14,11 @@ class LoginService(private val ctx: Context) {
         private const val USER_ID_KEY = "user_id"
     }
 
+    fun getUserId(): Int = ctx.getSharedPreferences(
+        LOGIN_PREFERENCE_FILENAME,
+        Context.MODE_PRIVATE
+    ).getInt(USER_ID_KEY, -1)
+
     fun isConnected(): Boolean = ctx.getSharedPreferences(
         LOGIN_PREFERENCE_FILENAME,
         Context.MODE_PRIVATE
