@@ -8,40 +8,21 @@
 		android:id="@+id/cartItemName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
+		android:layout_marginStart="4dp"
 		android:text="@string/default_preview"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
-
-	<TextView
-		android:id="@+id/textView4"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:text="@string/minus"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/cartItemName"
+		app:layout_constraintStart_toEndOf="@+id/cartItemCount"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
 		android:id="@+id/cartItemSize"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
+		android:layout_marginStart="4dp"
 		android:text="@string/default_preview"
+		android:textAllCaps="false"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/textView4"
-		app:layout_constraintTop_toTopOf="parent" />
-
-	<TextView
-		android:id="@+id/textView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:text="@string/minus"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/cartItemSize"
+		app:layout_constraintStart_toEndOf="@+id/cartItemName"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
@@ -52,7 +33,7 @@
 		android:layout_weight="1"
 		android:text="@string/default_unknown"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/textView"
+		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
@@ -72,7 +53,7 @@
 		android:layout_marginStart="8dp"
 		android:text="@string/minus"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/cartItemCount"
+		app:layout_constraintStart_toEndOf="@+id/cartItemSize"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
