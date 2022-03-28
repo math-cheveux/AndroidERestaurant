@@ -52,6 +52,7 @@ class CartActivity : AppCompatActivity() {
             }
         } else {
             binding.cartButton.visibility = View.GONE
+            binding.emptyCartTextView.visibility = View.VISIBLE
         }
     }
 }

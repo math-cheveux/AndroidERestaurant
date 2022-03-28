@@ -10,6 +10,7 @@
 		android:id="@+id/cart_title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
 		android:text="@string/your_cart"
 		android:textAlignment="viewStart"
 		android:textColor="?attr/colorPrimary"
@@ -48,4 +49,15 @@
 		app:layout_constraintBottom_toTopOf="@+id/cart_button"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent" />
+
+	<TextView
+		android:id="@+id/emptyCartTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/empty_cart"
+		android:visibility="gone"
+		app:layout_constraintBottom_toTopOf="@+id/cart_button"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/cart_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>
