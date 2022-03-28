@@ -2,6 +2,8 @@ package fr.isen.cheveux.androiderestaurant
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,8 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.cartToolbar)
 
         val cart = CartService(this).getInstance()
 
@@ -52,6 +56,27 @@ class CartActivity : AppCompatActivity() {
             }
         } else {
             binding.cartButton.visibility = View.GONE
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_cart, menu)
+
+        val menuItem = menu!!.findItem(R.id.action_orders)
+        menuItem.actionView.setOnClickListener {
+            onOptionsItemSelected(menuItem)
+        }
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_orders -> {
+            startActivity(Intent(this, CartActivity::class.java))
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 }
