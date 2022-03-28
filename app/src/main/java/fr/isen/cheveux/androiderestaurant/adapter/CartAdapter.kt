@@ -3,6 +3,7 @@ package fr.isen.cheveux.androiderestaurant.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import fr.isen.cheveux.androiderestaurant.R
 import fr.isen.cheveux.androiderestaurant.databinding.CartRowItemBinding
 import fr.isen.cheveux.androiderestaurant.model.ApiData
@@ -28,15 +29,21 @@ class CartAdapter(
 
     inner class ViewHolder(private val binding: CartRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(priceDataIntPair: Pair<PriceData, Int>) {
-            binding.cartItemName.text = DataService(apiData).getPlate(priceDataIntPair.first)?.frName
-                ?: itemView.resources.getString(R.string.default_unknown)
-            binding.cartItemSize.text = priceDataIntPair.first.size
-            binding.cartItemCount.text = priceDataIntPair.second.toString()
+            val price = priceDataIntPair.first
+            val quantity = priceDataIntPair.second
+            val plate = DataService(apiData).getPlate(price)
+
+            if (plate?.images?.isNotEmpty() == true && plate.images[0].isNotEmpty()) {
+                Picasso.get().load(plate.images[0]).fit().into(binding.cartItemImage)
+            }
+            binding.cartItemName.text = plate?.frName ?: itemView.resources.getString(R.string.default_unknown)
+            binding.cartItemSize.text = price.size
+            binding.cartItemCount.text = quantity.toString()
             binding.cartItemAmount.text =
-                ((priceDataIntPair.first.price * priceDataIntPair.second).toString() + itemView.resources.getString(R.string.currency_euro))
+                ((price.price * quantity).toString() + itemView.resources.getString(R.string.currency_euro))
 
             binding.deleteCartItemButton.setOnClickListener {
-                CartService(itemView.context).removeItem(cartData, priceDataIntPair.first)
+                CartService(itemView.context).removeItem(cartData, price)
                 CartService(itemView.context).save(cartData)
                 notifyDataSetChanged()
             }

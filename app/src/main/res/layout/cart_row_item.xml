@@ -33,7 +33,7 @@
 		android:layout_weight="1"
 		android:text="@string/default_unknown"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/cartItemImage"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
@@ -65,5 +65,14 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/textView5"
 		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageView
+		android:id="@+id/cartItemImage"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@android:drawable/ic_menu_info_details" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
